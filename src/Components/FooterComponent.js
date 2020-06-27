@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Link as DomLink } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { List, ListItem, Link } from '@material-ui/core';
 import '../css/FooterComponent.css';
@@ -23,10 +23,10 @@ function Footer() {
                     <h4 className="footer-headings">About</h4>
                     <List>
                         <ListItem className="list-item">
-                            <Link className="footer-links" href="#" >About Us</Link>
+                            <DomLink className="footer-links" to={'/aboutus'} >About Us</DomLink>
                         </ListItem>
                         <ListItem className="list-item">
-                            <Link className="footer-links" href="#">Contact Us</Link>
+                            <DomLink className="footer-links" to={'/contactus'}>Contact Us</DomLink>
                         </ListItem>
                     </List>
                 </Grid>
