@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { List, ListItem, Link } from '@material-ui/core';
-import './Footer-css.css';
+import '../css/FooterComponent.css';
 
 
 function Footer() {
