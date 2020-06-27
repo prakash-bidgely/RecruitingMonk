@@ -23,10 +23,10 @@ function Footer() {
                     <h4 className="footer-headings">About</h4>
                     <List>
                         <ListItem className="list-item">
-                            <DomLink className="footer-links" to={'/aboutus'} >About Us</DomLink>
+                            <DomLink className="footer-links" to="/aboutus" >About Us</DomLink>
                         </ListItem>
                         <ListItem className="list-item">
-                            <DomLink className="footer-links" to={'/contactus'}>Contact Us</DomLink>
+                            <DomLink className="footer-links" to="/contactus" >Contact Us</DomLink>
                         </ListItem>
                     </List>
                 </Grid>
