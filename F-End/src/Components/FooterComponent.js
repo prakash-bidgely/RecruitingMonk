@@ -10,7 +10,7 @@ function Footer() {
     return(
         <div>
             <Grid className="footer-top" container>
-                <Grid className="footer-item" item xs={12} md={4}>
+                <Grid className="footer-item" item xs={12} md={5} lg={4} >
                     <div className="footer-logo">
                     <img width="150" height="150" alt="Recruiting Monk" src="assets/images/logo-recruitingmonk-vertical-color-transbg.png" />
                     </div>
