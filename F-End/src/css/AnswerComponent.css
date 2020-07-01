@@ -1,0 +1,31 @@
+.answer-container {
+    background: #FFFFFF;
+    padding: 20px;
+}
+
+.Answer-field {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.Answer-field .Mui-focused {
+    background: #fff;
+}
+
+.image-attach, .file-attach {
+    float: right;
+}
+
+input {
+    display: none;
+}
+
+.Cancel-answer {
+    margin-right: 30px !important;
+    background: white !important;
+    color:rgba(0, 0, 0, 0.87) !important;
+}
+
+.Submit-answer {
+    background: #B0343C !important;
+    color: #FFFFFF !important;
+}
