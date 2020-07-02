@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import AttachmentIcon from '@material-ui/icons/Attachment';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import '../css/ReplyComponent.css';
@@ -60,21 +61,24 @@ class Answer extends Component {
             return(
             <div className="reply-container" style={{display: this.state.display}}>
             <form noValidate autoComplete="off">
+            
                 <TextField fullWidth multiline value={this.state.reply}
-                onChange={this.handleReply}
+                onChange={this.handleReply} InputProps={{
+                    endAdornment:
+                    <InputAdornment position="end">
+                        <input accept="file/*" id="reply-attachment-file" type="file" />
+                    <label htmlFor="reply-attachment-file">
+                        <IconButton className="reply-file-attach" aria-label="attachment" component="span">
+                        <AttachmentIcon />        
+                        </IconButton>
+                    </label>
+                    </InputAdornment>
+                  }}
                 rowsMax={100} className="reply-field" rows={4}
                 label="Your Reply" placeholder="Type Your Reply Here" 
                 variant="outlined" />
 
-                <div align="right">
-                <input accept="file/*" id="attachment-file" type="file" />
-                    <label htmlFor="attachment-file">
-                        <IconButton className="file-attach" aria-label="attachment" component="span">
-                        <AttachmentIcon />        
-                        </IconButton>
-                    </label>
-                </div>
-                    <div align="right" style={{ paddingTop: '80px' }} className="reply-container-buttons">
+                    <div align="right" style={{ paddingTop: '40px' }} className="reply-container-buttons">
                         <Button size="small" variant="contained" className="Cancel-reply"
                         onClick={this.cancelReply}
                         >Cancel</Button>

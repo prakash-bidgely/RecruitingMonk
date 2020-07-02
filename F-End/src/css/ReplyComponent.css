@@ -9,8 +9,9 @@
     background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
-.file-attach {
+.reply-file-attach {
     float: right;
+    transform: translate(10px,-40px);
 }
 
 input {

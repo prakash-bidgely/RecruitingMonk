@@ -4,6 +4,7 @@ import ContactUs from './Components/ContactUsComponent';
 import AboutUs from './Components/AboutUsComponent';
 import Answer from './Components/AnswerComponent';
 import Reply from './Components/ReplyComponent';
+import Profile from './Components/ProfileComponent';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -20,6 +21,9 @@ class App extends Component {
   render() {
   return (
     <BrowserRouter>
+    <div>
+      <Profile />
+    </div>
     <div>
       <Answer login={this.state.login} />
     </div>
