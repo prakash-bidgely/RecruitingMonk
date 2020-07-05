@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link as DomLink } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
-import { List, ListItem, Link } from '@material-ui/core';
-import '../css/FooterComponent.css';
+import { Grid, List, ListItem, Link } from '@material-ui/core';
 
 
 function Footer() {
@@ -52,7 +50,6 @@ function Footer() {
                     </List>
                 </Grid>
             </Grid>
-            <hr />
             <Grid className="footer-bottom" container>
             <Grid item> © 2019 Recruiting Monk. All Rights Reserved.</Grid>
             </Grid>

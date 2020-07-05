@@ -4,7 +4,6 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import '../css/AnswerComponent.css';
 
 
 class Answer extends Component {

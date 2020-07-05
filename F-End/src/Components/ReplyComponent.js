@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import '../css/ReplyComponent.css';
 
 
-class Answer extends Component {
+class Reply extends Component {
 
     constructor(props) {
         super(props);
@@ -100,4 +98,4 @@ class Answer extends Component {
     }
 }
 
-export default Answer;
+export default Reply;

@@ -5,7 +5,7 @@ import AboutUs from './Components/AboutUsComponent';
 import Answer from './Components/AnswerComponent';
 import Reply from './Components/ReplyComponent';
 import Profile from './Components/ProfileComponent';
-import './App.css';
+import './css/styles.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
@@ -24,12 +24,16 @@ class App extends Component {
     <div>
       <Profile />
     </div>
+    
+    {/*
     <div>
       <Answer login={this.state.login} />
     </div>
     <div>
       <Reply login={this.state.login} />
     </div>
+    */}
+    
     <div>
         <Route exact path="/contactus" component={ContactUs} />
         <Route exact path="/aboutus" component={AboutUs} />
