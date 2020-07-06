@@ -4,6 +4,7 @@
     1. Footer component css
     2. Profile component css
     3. Answer and Reply component css
+    4. Contact Component css
 */
 
 
@@ -216,4 +217,19 @@ input {
 .Submit-answer, .Submit-reply {
     background: #B0343C !important;
     color: #FFFFFF !important;
+}
+
+/* Contact Component CSS */
+
+.contact-form-field {
+    margin-bottom: 20px !important;
+}
+
+.contact-form-submit {
+    background-color: #B32800 !important;
+    color: #FFFFFF !important;
+}
+
+.contact-form-submit:hover {
+    background-color: #f99c38 !important;
 }

@@ -21,11 +21,13 @@ class App extends Component {
   render() {
   return (
     <BrowserRouter>
+    
+    {/*
     <div>
       <Profile />
     </div>
     
-    {/*
+    
     <div>
       <Answer login={this.state.login} />
     </div>
