@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, FormHelperText, TextField, Button } from '@material-ui/core';
+import { Grid, FormHelperText, TextField, Button, Typography } from '@material-ui/core';
 
 class ContactUs extends Component {
 
@@ -46,6 +46,17 @@ class ContactUs extends Component {
 
     return(
         <div style={{ background: 'white', padding: '25px' }}>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <h2><span class="fa fa-paper-plane"> </span> Contact Us</h2>
+                    <Typography>
+                    We understand the importance of approaching each work integrally and believe in the power of simple and easy communication. Feel free to contact us for any questions or if you need any help or services ! Please provide a detailed explanation of your problem.
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <br/>
+                </Grid>
+            </Grid>
             <form>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
