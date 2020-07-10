@@ -27,14 +27,14 @@ class ContactUs extends Component {
             [name]: value
         });
 
-        {/*
+        /*
             const reg = /^\d+$/;
         if( !(!reg.test(this.state.mobile) && this.state.mobile.length < 10) && !(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) && !(this.state.message.length < 10) ) {
             this.setState({
                 dis: false
             });
         }
-    */}
+        */
     }
 
     handleSubmit(event) {

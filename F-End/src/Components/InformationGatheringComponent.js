@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, DialogContent, DialogContentText, DialogActions, Button, DialogTitle,
-            TextField, MenuItem, Grid } from '@material-ui/core';
+            TextField, Grid, InputLabel, NativeSelect } from '@material-ui/core';
 
 
 function InformationGathering() {
@@ -46,33 +46,37 @@ function InformationGathering() {
                     <form onSubmit={handleSubmit}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
-                            <TextField id="designation" name="designation" label="Designation" required={true}
-                                value={state.designation} onChange={handleChange} select fullWidth>
-                                <MenuItem value="Consultant">Consultant</MenuItem>
-                                <MenuItem value="Senior Recruiter/TA/HR">Senior Recruiter/TA/HR</MenuItem>
-                                <MenuItem value="Lead Recruiter/TA/HR">Lead Recruiter/TA/HR</MenuItem>
-                                <MenuItem value="Manager Recruiter/TA/HR">Manager Recruiter/TA/HR</MenuItem>
-                                <MenuItem value="VP Recruiter/TA/HR">VP Recruiter/TA/HR</MenuItem>
-                                <MenuItem value="Director">Director</MenuItem>
-                                <MenuItem value="CEO">CEO</MenuItem>
-                                <MenuItem value="Others">Others</MenuItem>
-                            </TextField>
+                            <InputLabel htmlFor="designation" placeholder="Select from options" required>Designation</InputLabel>
+                                <NativeSelect id="designation" name="designation" required={true}
+                                    value={state.designation} onChange={handleChange} fullWidth>
+                                    <option value="" disabled>Select from options</option>
+                                    <option value="Consultant">Consultant</option>
+                                    <option value="Senior Recruiter/TA/HR">Senior Recruiter/TA/HR</option>
+                                    <option value="Lead Recruiter/TA/HR">Lead Recruiter/TA/HR</option>
+                                    <option value="Manager Recruiter/TA/HR">Manager Recruiter/TA/HR</option>
+                                    <option value="VP Recruiter/TA/HR">VP Recruiter/TA/HR</option>
+                                    <option value="Director">Director</option>
+                                    <option value="CEO">CEO</option>
+                                    <option value="Others">Others</option>
+                                </NativeSelect>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField id="company-name" onChange={handleChange} label="Company Name" name="company"
                                 value={state.company} fullWidth required={true}></TextField>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id="industry" label="Industry" name="industry" required={true}
+                        <InputLabel htmlFor="industry" required>Industry</InputLabel>
+                            <NativeSelect id="industry" label="Industry" name="industry" required={true}
                                 value={state.industry} onChange={handleChange} select fullWidth>
-                                <MenuItem value="Staffing">Staffing</MenuItem>
-                                <MenuItem value="IT Services">IT Services</MenuItem>
-                                <MenuItem value="Internet">Internet</MenuItem>
-                                <MenuItem value="BPO/KPO">BPO/KPO</MenuItem>
-                                <MenuItem value="BFSI/Investment Bank">BFSI/Investment Bank</MenuItem>
-                                <MenuItem value="Embedded">Embedded</MenuItem>
-                                <MenuItem value="Others">Others</MenuItem>
-                            </TextField>
+                                    <option value="" disabled>Select from options</option>
+                                    <option value="Staffing">Staffing</option>
+                                    <option value="IT Services">IT Services</option>
+                                    <option value="Internet">Internet</option>
+                                    <option value="BPO/KPO">BPO/KPO</option>
+                                    <option value="BFSI/Investment Bank">BFSI/Investment Bank</option>
+                                    <option value="Embedded">Embedded</option>
+                                    <option value="Others">Others</option>
+                            </NativeSelect>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField type="number" id="experience" name="experience" required={true}
