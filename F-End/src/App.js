@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Footer from './Components/FooterComponent';
 import ContactUs from './Components/ContactUsComponent';
 import AboutUs from './Components/AboutUsComponent';
+import InformationGathering from './Components/InformationGatheringComponent';
 import Answer from './Components/AnswerComponent';
 import Reply from './Components/ReplyComponent';
 import Profile from './Components/ProfileComponent';
@@ -35,7 +36,9 @@ class App extends Component {
       <Reply login={this.state.login} />
     </div>
     */}
-    
+    <div>
+      <InformationGathering />
+    </div>
     <div>
         <Route exact path="/contactus" component={ContactUs} />
         <Route exact path="/aboutus" component={AboutUs} />
