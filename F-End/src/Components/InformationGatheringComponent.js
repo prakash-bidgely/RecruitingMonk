@@ -9,7 +9,7 @@ function InformationGathering() {
         designation: '',
         company: '',
         industry: '',
-        experience: 0,
+        experience: '',
         location: ''
     });
 
@@ -43,9 +43,10 @@ function InformationGathering() {
                     <DialogContentText>
                         Tell Us A Bit About Yourself
                     </DialogContentText>
+                    <form onSubmit={handleSubmit}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
-                            <TextField id="designation" name="designation" label="Designation"
+                            <TextField id="designation" name="designation" label="Designation" required={true}
                                 value={state.designation} onChange={handleChange} select fullWidth>
                                 <MenuItem value="Consultant">Consultant</MenuItem>
                                 <MenuItem value="Senior Recruiter/TA/HR">Senior Recruiter/TA/HR</MenuItem>
@@ -59,10 +60,10 @@ function InformationGathering() {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField id="company-name" onChange={handleChange} label="Company Name" name="company"
-                                value={state.company} fullWidth></TextField>
+                                value={state.company} fullWidth required={true}></TextField>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id="industry" label="Industry" name="industry"
+                            <TextField id="industry" label="Industry" name="industry" required={true}
                                 value={state.industry} onChange={handleChange} select fullWidth>
                                 <MenuItem value="Staffing">Staffing</MenuItem>
                                 <MenuItem value="IT Services">IT Services</MenuItem>
@@ -74,14 +75,14 @@ function InformationGathering() {
                             </TextField>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField type="number" id="experience" name="experience"
+                            <TextField type="number" id="experience" name="experience" required={true}
                                 value={state.experience} onChange={handleChange}
                                 InputProps={{ inputProps: { min: 0, max: 50 } }}
                                 label="Experience (in years)" fullWidth>
                             </TextField>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id="location" label="Location" name="location"
+                            <TextField id="location" label="Location" name="location" required={true}
                                 value={state.location} onChange={handleChange} fullWidth>
                             </TextField>
                         </Grid>
@@ -89,8 +90,9 @@ function InformationGathering() {
                     <br /><br />
                     <DialogActions>
                         <Button style={{background: 'white'}} variant="outlined" onClick={handleClose}>Cancel</Button>
-                        <Button style={{background: '#b0343c', color: 'white'}} variant="outlined" onClick={handleSubmit}>Submit</Button>
+                        <Button style={{background: '#b0343c', color: 'white'}} type="submit" variant="outlined">Submit</Button>
                     </DialogActions>
+                    </form>
                 </DialogContent>
             </Dialog>
         </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, FormHelperText, TextField, Button, Typography } from '@material-ui/core';
+import { Grid, TextField, Button, Typography } from '@material-ui/core';
 
 class ContactUs extends Component {
 
@@ -11,8 +11,7 @@ class ContactUs extends Component {
             email: '',
             mobile: '',
             subject: '',
-            message: '',
-            dis: true
+            message: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,12 +27,14 @@ class ContactUs extends Component {
             [name]: value
         });
 
-        const reg = /^\d+$/;
+        {/*
+            const reg = /^\d+$/;
         if( !(!reg.test(this.state.mobile) && this.state.mobile.length < 10) && !(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) && !(this.state.message.length < 10) ) {
             this.setState({
                 dis: false
             });
         }
+    */}
     }
 
     handleSubmit(event) {
@@ -57,47 +58,42 @@ class ContactUs extends Component {
                     <br/>
                 </Grid>
             </Grid>
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <TextField fullWidth type="text" name="name" label="Name" placeholder="Your Name"
-                            variant="outlined" className="contact-form-field"
+                            variant="outlined" className="contact-form-field" required={true}
                             value={this.state.name}
                             onChange={this.handleInput} />
-                            <FormHelperText></FormHelperText>
                      </Grid>
                      <Grid item xs={12} md={6}>
                         <TextField fullWidth type="email" name="email" label="Email" placeholder="Your Email"
-                            variant="outlined" className="contact-form-field"
+                            variant="outlined" className="contact-form-field" required={true}
                             value={this.state.email}
                             onChange={this.handleInput} />
-                            <FormHelperText></FormHelperText>
                      </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <TextField fullWidth name="mobile" label="Mobile Number" placeholder="Your Mobile Number"
-                            variant="outlined" className="contact-form-field"
-                            value={this.state.mobile}
+                            variant="outlined" type="number" className="contact-form-field" 
+                            value={this.state.mobile} min={9} max={13}
                             onChange={this.handleInput} />
-                            <FormHelperText></FormHelperText>
                      </Grid>
                      <Grid item xs={12} md={6}>
                         <TextField fullWidth type="text" name="subject" label="Subject" placeholder="Your Subject"
                             variant="outlined" className="contact-form-field"
                             value={this.state.subject}
                             onChange={this.handleInput} />
-                            <FormHelperText></FormHelperText>
                      </Grid>
                 </Grid>
                 <TextField multiline rows={10} maxRows={20} name="message"
                      fullWidth label="Message" placeholder="Your Message"
                      variant="outlined" className="contact-form-field"
-                     value={this.state.message}
+                     value={this.state.message} required={true}
                      onChange={this.handleInput} />
-                     <FormHelperText></FormHelperText>
                 <Button className="contact-form-submit" variant="contained" fullWidth
-                    disabled={this.state.dis} onClick={this.handleSubmit}
+                    type="submit"
                 >Send</Button>
             </form>
         </div>
