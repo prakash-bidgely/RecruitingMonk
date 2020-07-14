@@ -6,6 +6,7 @@ import InformationGathering from './Components/InformationGatheringComponent';
 import Answer from './Components/AnswerComponent';
 import Reply from './Components/ReplyComponent';
 import Profile from './Components/ProfileComponent';
+import Community from './Components/CommunityComponent';
 import './css/styles.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -37,7 +38,7 @@ class App extends Component {
     </div>
     */}
     <div>
-      <InformationGathering />
+      <Community />
     </div>
     <div>
         <Route exact path="/contactus" component={ContactUs} />
