@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import Footer from './Components/FooterComponent';
 import ContactUs from './Components/ContactUsComponent';
 import AboutUs from './Components/AboutUsComponent';
-import InformationGathering from './Components/InformationGatheringComponent';
-import Answer from './Components/AnswerComponent';
-import Reply from './Components/ReplyComponent';
-import Profile from './Components/ProfileComponent';
-import Community from './Components/CommunityComponent';
+import Post from './QnPostnPoll/AddComponent';
 import './css/styles.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -38,7 +34,7 @@ class App extends Component {
     </div>
     */}
     <div>
-      <Community />
+      <Post />
     </div>
     <div>
         <Route exact path="/contactus" component={ContactUs} />

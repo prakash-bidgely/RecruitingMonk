@@ -6,6 +6,7 @@
     3. Answer and Reply component css
     4. Contact Component css
     5. Community Component css
+    6. Post Features
 */
 
 
@@ -261,4 +262,49 @@ input {
     .community-tabs-info {
         margin-left: 12px !important;
     }
+}
+
+/* Post Features CSS */
+
+.post-tabs .MuiTabs-indicator {
+    background-color: #f2f2f2 !important;
+}
+
+.post-tabs .Mui-selected {
+    font-weight: 700;
+    color: #b32800;
+}
+
+.post-tabpanel {
+    background-color: #f2f2f2;
+}
+
+.question-cat-container, .post-cat-container {
+    background: #FFFFFF;
+    padding: 15px;
+}
+
+.cat-chooser select {
+    padding-left: 20px;
+}
+
+.question-cat-container .cat-chooser, .post-cat-container .cat-chooser {
+    background: #f2f2f2;
+}
+
+.cat-chooser .MuiInput-underline:before, .cat-chooser .MuiInput-underline:after {
+    border-bottom: none !important;
+}
+
+.cat-chooser svg{
+    display: none !important;
+}
+
+.MuiInputAdornment-root {
+    align-items: flex-end !important;
+    margin-top: -35px;
+}
+
+@media only screen and (max-width:767px) {
+    
 }
