@@ -279,7 +279,7 @@ input {
     background-color: #f2f2f2;
 }
 
-.question-cat-container, .post-cat-container {
+.question-cat-container, .poll-cat-container, .post-cat-container {
     background: #FFFFFF;
     padding: 15px;
 }
@@ -288,7 +288,7 @@ input {
     padding-left: 20px;
 }
 
-.question-cat-container .cat-chooser, .post-cat-container .cat-chooser {
+.question-cat-container .cat-chooser, .poll-cat-container .cat-chooser, .post-cat-container .cat-chooser {
     background: #f2f2f2;
 }
 

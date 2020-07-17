@@ -3,6 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddQuestion from './AddQuestionForm';
 import AddPost from './AddPostForm';
+import AddPoll from './AddPollForm';
 
 function TabPanel(props) {
     const { children, value, index } = props;
@@ -42,7 +43,7 @@ function Post() {
                 <AddQuestion />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Poll Form
+                <AddPoll />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <AddPost />
