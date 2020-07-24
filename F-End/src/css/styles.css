@@ -201,11 +201,6 @@
     float: right;
 }
 
-.reply-file-attach {
-    float: right;
-    transform: translate(10px,-40px);
-}
-
 input {
     display: none;
 }

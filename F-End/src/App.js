@@ -3,6 +3,8 @@ import Footer from './Components/FooterComponent';
 import ContactUs from './Components/ContactUsComponent';
 import AboutUs from './Components/AboutUsComponent';
 import Post from './QnPostnPoll/AddComponent';
+import Community from './Components/CommunityComponent';
+import Reply from './Components/ReplyComponent';
 import './css/styles.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -30,12 +32,18 @@ class App extends Component {
       <Answer login={this.state.login} />
     </div>
     <div>
+      <Post />
+    </div>
+
+        <div>
       <Reply login={this.state.login} />
     </div>
     */}
+
     <div>
       <Post />
     </div>
+
     <div>
         <Route exact path="/contactus" component={ContactUs} />
         <Route exact path="/aboutus" component={AboutUs} />
