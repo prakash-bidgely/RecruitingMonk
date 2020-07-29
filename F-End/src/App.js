@@ -6,6 +6,7 @@ import Post from './QnPostnPoll/AddComponent';
 import Community from './Components/CommunityComponent';
 import Reply from './Components/ReplyComponent';
 import './css/styles.css';
+import ReplyDesign from './Components/ReplyDesign';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
@@ -14,7 +15,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      login : true
+      login : false
     }
   }
   
@@ -41,7 +42,7 @@ class App extends Component {
     */}
 
     <div>
-      <Post />
+      <ReplyDesign />
     </div>
 
     <div>

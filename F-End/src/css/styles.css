@@ -7,6 +7,7 @@
     4. Contact Component css
     5. Community Component css
     6. Post Features
+    7. Reply Design CSS
 */
 
 
@@ -302,4 +303,53 @@ input {
 
 @media only screen and (max-width:767px) {
     
+}
+
+
+/* Reply Design CSS */
+
+.topReply{
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    line-height: 0;
+}
+
+.topReply1{
+    padding-left: 10px;
+}
+
+.topReply2{
+    display: flex;
+}
+
+.topReply2 p{
+    padding-left: 10px;
+    font-size: 14px;
+    color: #333333;
+    position: relative;
+    bottom: 5px;
+}
+
+.topReplyHead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btmReply{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.btmReply2, .btmReply1{
+    display: flex;
+    align-items: center;
+}
+
+.ReplyBody {
+    border-left: 2px solid #b32800;
 }
