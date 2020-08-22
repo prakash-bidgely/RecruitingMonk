@@ -51,7 +51,6 @@ router.delete(
     '/:id',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        Profile.findOne({ user: req.user.id }).then(profile => {
             Post.findById(req.params.id)
                 .then(post => {
                     if (post.user.toString() !== req.user.id) {
@@ -63,7 +62,6 @@ router.delete(
                     post.remove().then(() => res.json({ success: true }));
                 })
                 .catch(err => res.status(404).json({ success: false, msg: 'No post found' }));
-        });
     }
 );
 

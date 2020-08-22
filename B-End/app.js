@@ -16,10 +16,10 @@ var mongoose = require("mongoose");
 const multer = require("multer");
 var Content = require('./models/content');
 const jwt = require("jsonwebtoken");
-
+var cors = require('cors');
 var app = express();
 
-
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -45,6 +45,14 @@ const fileFilter = (req,file,cb)=>{
   else
     cb(null,false);
 };
+
+app.all('*', function(req, res, next) {
+     var origin = req.get('origin');
+     res.header('Access-Control-Allow-Origin', origin);
+     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+     res.header('Access-Control-Allow-Headers', 'Content-Type');
+     next();
+});
 
 app.use(passport.initialize());
 require('./config/passport')(passport);
