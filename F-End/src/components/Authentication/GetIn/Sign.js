@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Signup from './Signup';
 import Forget from './Forget';
+import {connect} from "react-redux";
 import '../Auth.css'
 
 
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  
-export default function Sign() {
+function Sign() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -142,3 +143,10 @@ export default function Sign() {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Sign);
+

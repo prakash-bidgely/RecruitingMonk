@@ -10,7 +10,7 @@ export default function authReducer(state={
                 ...state,
                 isAuthenticated:true,
                 authUser : action.payload.auth
-            }
+            };
 
     default:
         return state;
