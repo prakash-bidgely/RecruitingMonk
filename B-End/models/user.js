@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
         type: String
     },
     username: {
-        type: String
+        type: String,
+        unique: true
     },
     googleUserId: {
         type: String,
@@ -49,6 +50,41 @@ var userSchema = new mongoose.Schema({
     pdf: {
         type: [String]
     },
+    employment: {
+        bio: {
+            type: String,
+            default: ""
+        },
+        designation: {
+            type: String,
+            default: ""
+        },
+        company: {
+            type: String,
+            default: ""
+        },
+        industry: {
+            type: String,
+            default: ""
+        },
+        experience: {
+            type: Number
+        },
+        location: {
+            type: String,
+            default: ""
+        }
+    },
+    points: {
+        type: Number,
+        default: 10
+    },
+    followers: [
+        {
+            ref: 'User',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ],
     resetPasswordToken: {
         type: String,
         default: ''

@@ -131,6 +131,27 @@ router.post('/register', (req, res) => {
   });
 });
 
+router.post('/complete',  (req,res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const username = req.body.username;
+  const employment = req.body.employment;
+
+  User.findOne({ username }).then(user => {
+    if (!user) {
+      errors.username = 'User not found';
+      return res.status(404).json(errors);
+    }
+
+    user.employment = employment;
+    user.save().then(user => res.json(user)).catch(err => res.send(500));
+  })
+});
+
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
@@ -157,6 +178,7 @@ router.post('/login', (req, res) => {
             { expiresIn: 3600 },
             (err, token) => {
               res.json({
+                user: user,
                 success: true,
                 token: 'Bearer ' + token
               });
@@ -170,13 +192,18 @@ router.post('/login', (req, res) => {
   });
 });
 
+router.post("/follow/:source/:dest", passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      User.findByIdAndUpdate(req.params.dest, { $push: { followers: req.params.source }}, { new: true, useFindAndModify: false })
+          .then(user => res.json({ user }))
+          .catch(error => res.send(500))
+    }
+);
+
 router.get(
-    '/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-      console.log(req.user);
+    '/current', (req, res) => {
       res.json({
-        id: req.user.id,
-        name: req.user.name,
-        username: req.user.username
+        user: req.user
       });
     }
 );

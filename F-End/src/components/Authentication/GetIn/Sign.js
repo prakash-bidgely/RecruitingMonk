@@ -10,10 +10,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { store } from '../../../redux/reducers/index'
 import Signup from './Signup';
 import Forget from './Forget';
 import {connect} from "react-redux";
 import '../Auth.css'
+import Swal from 'sweetalert2'
+import {UTILS} from "../../../redux/utils";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- 
 function Sign() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -43,25 +45,96 @@ function Sign() {
     setOpen(false);
   };
 
+
   // For hanlding the remember user.
-      const [state, setState] = React.useState({
-        checkedMe: true,
-        checkedB: true,
-        checkedF: true,
-        checkedG: true,
+
+  const [checked, setChecked] = React.useState(true);
+
+  const handleCheck = (e) => {
+    setChecked(e.target.checked)
+  }
+
+  const [state, setState] = React.useState({
+    username: '',
+    password: ''
+  });
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const finalstep = (e) => {
+
+    var raw = JSON.stringify(state);
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    return fetch("https://recmonk.herokuapp.com/login", requestOptions)
+
+      .then(response => {
+        if (response.ok) {
+          handleClose();
+          return response;
+        }
+        else {
+          handleClose();
+          var error = new Error("Error " + response.status + ": " + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+        error => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        })
+      .then(response => response.json())
+
+      .then(result => {
+        console.log(result);
+        
+          //to update the state 
+          store.subscribe(()=>{
+            console.warn('my redux: ', store.getState())
+            console.log('user: ', store.getState().authUser.authUser)
+        });
+
+        const addUser = text=>{
+            return{
+                type: "SET_AUTH_TOKEN",
+                payload: {auth: text}
+            }
+        };
+
+        localStorage.setItem("token", result.token);
+
+        //assigning the new value to the state
+        store.dispatch(addUser(result.token));
+        UTILS.setAuthHeader(result.token);
+      
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message
+        })
       });
-
-      const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-      };
-
-      // const doSignUp =()=>{
-      //   document.getElementById('siginModalId').style.display = 'none';
-      // }
+  }
 
   return (
-    <div className="Sign">
-      <Button className="signBtn" style={{color: '#B0343C', fontWeight: 'bold', position: 'absolute', top: '8px', right: '16px'}} type="button" onClick={handleOpen}>
+    <div className="Sign" id="idSign">
+      <Button className="signBtn" style={{ color: '#B0343C', fontWeight: 'bold', position: 'absolute', top: '8px', right: '16px' }} type="button" onClick={handleOpen}>
         Sign in
       </Button>
       <Modal
@@ -79,63 +152,71 @@ function Sign() {
         <Fade in={open} className="signinModal" id="siginModalId">
           <div className={classes.paper}>
             <div className="apiBtn" id="transition-modal-title">
-                <Button id="transition-modal-description" variant="contained" color="secondary">Continue with <p style={{fontWeight: 'bold'}}>&nbsp;Google</p></Button>
-                <Button id="transition-modal-description" variant="contained" color="primary">Continue with <p style={{fontWeight: 'bold'}}>&nbsp;LinkedIn</p></Button>
+              <Button id="transition-modal-description" variant="contained" color="secondary">Continue with <p style={{ fontWeight: 'bold' }}>&nbsp;Google</p></Button>
+              <Button id="transition-modal-description" variant="contained" color="primary">Continue with <p style={{ fontWeight: 'bold' }}>&nbsp;LinkedIn</p></Button>
             </div>
 
             <div class="separator">or use</div>
 
             <div className="inputFields">
-              
+
               <div className={classes.margin} >
                 <div>
-              <Grid container spacing={1} alignItems="flex-end">
-                <Grid item>
-                  <AccountCircle style={{color: '#767676'}} />
-                </Grid>
-                <Grid item>
-                  <TextField id="input-with-icon-grid" label="Email" type="email" requireds/>
-                </Grid>
-              </Grid>
+                  <Grid container spacing={1} alignItems="flex-end">
+                    <Grid item>
+                      <AccountCircle style={{ color: '#767676' }} />
+                    </Grid>
+                    <Grid item>
+                      <TextField id="input-with-icon-grid" label="Email" name="username"
+                        value={state.username}
+                        onChange={handleChange}
+                        type="email" required />
+                    </Grid>
+                  </Grid>
                 </div>
 
-              <div>
-              <Grid container spacing={1} alignItems="flex-end">
-                <Grid item>
-                  <LockIcon style={{color: '#767676'}} />
-                </Grid>
-                <Grid item>
-                  <TextField id="input-with-icon-grid" label="Password" type="password" requireds/>
-                </Grid>
-              </Grid>
+                <div>
+                  <Grid container spacing={1} alignItems="flex-end">
+                    <Grid item>
+                      <LockIcon style={{ color: '#767676' }} />
+                    </Grid>
+                    <Grid item>
+                      <TextField id="input-with-icon-grid" label="Password"
+                        name="password"
+                        value={state.password}
+                        onChange={handleChange}
+                        type="password" required />
+                    </Grid>
+                  </Grid>
+                </div>
               </div>
-            </div>
             </div>
 
             <div className="addtnlLogTool">
-            <FormGroup 
-              style={{fontSize:'10px'}}
-            >
-              <FormControlLabel className="addtnlLogTool"
-                control={<Checkbox checked={state.checkedMe} onChange={handleChange} name="checkedMe" style={{color: '#767676', fontSize: '10px'}}  size="small"/>}
-                label="Remember Me!"
+              <FormGroup
+                style={{ fontSize: '10px' }}
+              >
+                <FormControlLabel className="addtnlLogTool"
+                  control={<Checkbox checked={checked} onChange={handleCheck} name="checkedMe" style={{ color: '#767676', fontSize: '10px' }} size="small" />}
+                  label="Remember Me!"
                 />
-                </FormGroup>
-             
-              <p style={{color: '#B0343C', cursor: 'pointer'}}>
-               <Forget/>
+              </FormGroup>
+
+              <p style={{ color: '#B0343C', cursor: 'pointer' }}>
+                <Forget />
               </p>
             </div>
 
             <div className="logBtn">
-              <Button variant="contained" container style={{backgroundColor: '#B0343C', color: '#fff', border: 'none', width: '80vw'}}>
+              <Button variant="contained" container style={{ backgroundColor: '#B0343C', color: '#fff', border: 'none', width: '80vw' }}
+                onClick={finalstep} >
                 Login
               </Button>
             </div>
             <div className="signUpBtn">
               <p>Don't have account, </p>
               {/* <Button color="primary">Sign Up Here</Button> */}
-              <p><Signup/></p>
+              <p><Signup /></p>
             </div>
           </div>
         </Fade>
