@@ -28,7 +28,6 @@ router.get('/:id', (req, res) => {
 
 router.post(
     '/',
-    passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const { errors, isValid } = validatePostInput(req.body);
 
@@ -49,7 +48,6 @@ router.post(
 
 router.delete(
     '/:id',
-    passport.authenticate('jwt', { session: false }),
     (req, res) => {
             Post.findById(req.params.id)
                 .then(post => {
@@ -67,7 +65,6 @@ router.delete(
 
 router.post(
     '/like/:id',
-    passport.authenticate('jwt', { session: false }),
     (req, res) => {
         Profile.findOne({ user: req.user.id }).then(profile => {
             Post.findById(req.params.id)
@@ -92,7 +89,7 @@ router.post(
 
 router.post(
     '/unlike/:id',
-    passport.authenticate('jwt', { session: false }),
+
     (req, res) => {
         Profile.findOne({ user: req.user.id }).then(profile => {
             Post.findById(req.params.id)
@@ -121,7 +118,7 @@ router.post(
 
 router.post(
     '/comment/:id',
-    passport.authenticate('jwt', { session: false }),
+
     (req, res) => {
         const { errors, isValid } = validatePostInput(req.body);
 
@@ -148,7 +145,7 @@ router.post(
 
 router.delete(
     '/comment/:id/:comment_id',
-    passport.authenticate('jwt', { session: false }),
+
     (req, res) => {
         Post.findById(req.params.id)
             .then(post => {
