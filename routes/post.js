@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+var User = require("../models/user");
 
 const Post = require('../models/Post');
 
@@ -27,10 +28,10 @@ router.get('/:id', (req, res) => {
 });
 
 router.post(
-    '/',
+    '/', passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const { errors, isValid } = validatePostInput(req.body);
-
+        console.log(req.user);
         if (!isValid) {
             return res.status(400).json(errors);
         }
@@ -47,7 +48,7 @@ router.post(
 );
 
 router.delete(
-    '/:id',
+    '/:id', passport.authenticate('jwt', { session: false }),
     (req, res) => {
             Post.findById(req.params.id)
                 .then(post => {
@@ -64,11 +65,15 @@ router.delete(
 );
 
 router.post(
-    '/like/:id',
+    '/like/:id', passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        Profile.findOne({ user: req.user.id }).then(profile => {
+
+        console.log(req.user._id);
+        User.findOne({ user: req.user._id }).then(profile => {
+            console.log(profile);
             Post.findById(req.params.id)
                 .then(post => {
+                    console.log(post);
                     if (
                         post.likes.filter(like => like.user.toString() === req.user.id)
                             .length > 0
@@ -89,9 +94,9 @@ router.post(
 
 router.post(
     '/unlike/:id',
-
+    passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        Profile.findOne({ user: req.user.id }).then(profile => {
+        User.findOne({ user: req.user.id }).then(profile => {
             Post.findById(req.params.id)
                 .then(post => {
                     if (
@@ -118,7 +123,7 @@ router.post(
 
 router.post(
     '/comment/:id',
-
+    passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const { errors, isValid } = validatePostInput(req.body);
 
@@ -145,7 +150,7 @@ router.post(
 
 router.delete(
     '/comment/:id/:comment_id',
-
+    passport.authenticate('jwt', { session: false }),
     (req, res) => {
         Post.findById(req.params.id)
             .then(post => {

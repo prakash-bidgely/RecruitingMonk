@@ -9,6 +9,7 @@ const sgMail = require('@sendgrid/mail');
 var bcrypt =  require('bcryptjs');
 var validateRegisterInput = require("../validation/register");
 var validateLoginInput = require("../validation/login");
+var validateCompleteProfile = require("../validation/profile");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
 //Download documents previously uploaded
@@ -132,7 +133,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/complete',  (req,res) => {
-  const { errors, isValid } = validateLoginInput(req.body);
+  const { errors, isValid } = validateCompleteProfile(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -153,7 +154,9 @@ router.post('/complete',  (req,res) => {
 });
 
 router.post('/login', (req, res) => {
+  console.log(req.body);
   const { errors, isValid } = validateLoginInput(req.body);
+  console.log(errors);
 
   if (!isValid) {
     return res.status(400).json(errors);
