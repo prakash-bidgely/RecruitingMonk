@@ -140,7 +140,7 @@ class UserProfile extends Component {
 
   componentDidMount() {
     this.props.fetchProfile();
-    console.log(this.props.info.info);
+    console.log("mapStateToProp value: ", this.props.info.info.name);
   }
 
   render() {

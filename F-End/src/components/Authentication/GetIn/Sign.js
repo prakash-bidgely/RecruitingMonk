@@ -10,6 +10,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {Link, useHistory} from 'react-router-dom'
 import { store } from '../../../redux/reducers/index'
 import Signup from './Signup';
 import Forget from './Forget';
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Sign() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
+  const history = useHistory();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -138,9 +140,15 @@ export default function Sign() {
 
   return (
     <div className="Sign" id="idSign">
-      <Button className="signBtn" style={{ color: '#B0343C', fontWeight: 'bold', position: 'absolute', top: '8px', right: '16px' }} type="button" onClick={handleOpen}>
+      {
+        localStorage.getItem('token') ? 
+        <AccountCircleIcon onClick={()=>history.push('/profile')} fontSize='large'  style={{color: '#b32800', position: 'absolute', top: '8px', right: '16px', cursor: 'pointer'}}/> :
+        <Button className="signBtn" style={{ color: '#B0343C', fontWeight: 'bold', position: 'absolute', top: '8px', right: '16px' }} type="button" onClick={handleOpen}>
         Sign in
-      </Button>
+        </Button>
+      }
+
+      
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
