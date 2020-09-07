@@ -12,6 +12,9 @@ var validateLoginInput = require("../validation/login");
 var validateCompleteProfile = require("../validation/profile");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
+const config = require("../config/auth");
+
+sgMail.setApiKey(config.sendgrid.apiKey);
 //Download documents previously uploaded
 router.get('/get', function (req, res) {
   Content.find({}, (err, doc) => {
@@ -56,12 +59,14 @@ router.post('/forgot', function (req, res, next) {
 
       const msg = {
         to: user.username,
-        from: 'prakashdas1998.pd@gmail.com',
+        from: 'prakash@bidgely.com',
         subject: 'Verify your account!',
         html: `Please click on the <a href="https://vigilant-mayer-030069.netlify.app/reset/${token}">link</a> to reset your password`,
       };
-      sgMail.send(msg, function (err) {
-        res.json({ error: true, msg:' An e-mail has been sent to ' + user.username + ' with further instructions.'});
+
+      sgMail.send(msg, false, function (err) {
+        console.log(err);
+       // res.json({ error: true, msg:' An e-mail has been sent to ' + user.username + ' with further instructions.'});
         done(err, 'done');
       });
     }
