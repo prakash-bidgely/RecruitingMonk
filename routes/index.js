@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require("../models/user");
+var Post = require("../models/Post");
 var Content = require("../models/content");
 const passport = require("passport");
 const async = require("async");
@@ -12,6 +13,8 @@ var validateLoginInput = require("../validation/login");
 var validateCompleteProfile = require("../validation/profile");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
+const php_password = require('php-passwd');
+var hasher = require('wordpress-hash-node');
 const config = require("../config/auth");
 
 sgMail.setApiKey(config.sendgrid.apiKey);
@@ -176,8 +179,10 @@ router.post('/login', (req, res) => {
       return res.status(404).json(errors);
     }
 
+    var hash = hasher.HashPassword(password);
+    var checked = hasher.CheckPassword(password, user.password); //This will return true;
     bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
+      if (isMatch || checked) {
         const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
 
         jwt.sign(
@@ -209,11 +214,66 @@ router.post("/follow/:source/:dest", passport.authenticate('jwt', { session: fal
 );
 
 router.get(
-    '/current', (req, res) => {
-      res.json({
-        user: req.user
-      });
+    '/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+      User.findOne({username: req.body.username}, async (err, doc) =>
+      {
+        if(err)
+          res.send(500);
+        var questions = await Post.find({isQuestion: true, user: doc._id });
+        var posts = await Post.find({isQuestion: false, user: doc._id });
+        doc.questions = questions;
+        doc.posts = posts;
+        res.json(doc);
+      })
     }
 );
+
+///////////////////////////////////////////////
+/**             Import scripts            **/
+//////////////////////////////////////////////
+router.post('/import', (req,res) => {
+  const newUser = new User(req.body);
+  newUser.save().then(response => res.send(response)).catch(err => res.send("error BE"))
+});
+
+router.get("/all", (req, res) => {
+  User.find({}, (err, doc) => {
+    res.send(doc);
+  })
+});
+
+router.get("/allq", (req, res) => {
+  Post.find({isQuestion: true}, (err, doc) => {
+    res.send(doc);
+  })
+});
+
+router.get("/alla", (req, res) => {
+  Post.find({isQuestion: false}, (err, doc) => {
+    res.send(doc);
+  })
+});
+
+router.post('/import2', (req,res) => {
+  const posts = new Post(req.body);
+  posts.save().then(response => {
+    res.send(response);
+  }).catch(err => {
+    console.log(err);
+    res.send(`Error in ${req.body.uid}`)
+  });
+});
+
+router.post('/import3/:parent', (req,res) => {
+  const posts = new Post(req.body);
+    Post.findOneAndUpdate( { _id: req.params.parent },
+        { $push: { comments: posts  } },{ new: true, useFindAndModify: false })
+        .then(post => {
+          console.log(post);
+          res.json({ post })
+        })
+        .catch(error => res.send(500))
+});
+
 
 module.exports = router;

@@ -31,7 +31,6 @@ router.post(
     '/', passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const { errors, isValid } = validatePostInput(req.body);
-        console.log(req.user);
         if (!isValid) {
             return res.status(400).json(errors);
         }
@@ -43,7 +42,14 @@ router.post(
             user: req.user.id
         });
 
-        newPost.save().then(post => res.json(post)).catch(err => res.json({ msg : "Some error occurred"}));
+        newPost.save().then(async post => {
+
+            var user = await User.findOneAndUpdate({_id: req.user._id}, {$inc: { points: 1 }}, {
+                returnOriginal: false
+            });
+            res.json(post);
+
+        }).catch(err => res.json({ msg : "Some error occurred"}));
     }
 );
 
@@ -67,13 +73,9 @@ router.delete(
 router.post(
     '/like/:id', passport.authenticate('jwt', { session: false }),
     (req, res) => {
-
-        console.log(req.user._id);
-        User.findOne({ user: req.user._id }).then(profile => {
-            console.log(profile);
+        User.findOne({ _id: req.user._id }).then(profile => {
             Post.findById(req.params.id)
                 .then(post => {
-                    console.log(post);
                     if (
                         post.likes.filter(like => like.user.toString() === req.user.id)
                             .length > 0
@@ -84,10 +86,55 @@ router.post(
                     }
 
                     post.likes.unshift({ user: req.user.id });
+                    var liker_role = profile.role;
 
-                    post.save().then(post => res.json(post));
+                    post.save().then(async post => {
+                        var author = await User.findById(post.user.toString());
+
+                        var total_likes = post.likes;
+                        var cnt = 0;
+                        var inc = 0;
+                        await Promise.all(total_likes.map(async like => {
+                            var userObj = await User.find({_id: like.user.toString(), role: liker_role});
+                            if(userObj)
+                                cnt++;
+                        }));
+                        if(liker_role === 1) {
+                            if(cnt-5 === 0)
+                                inc = 5;
+                            else if(cnt-11 === 0)
+                                inc = 7.5;
+                            else if(cnt-16 === 0)
+                                inc = 10;
+                        }
+                        else if( liker_role === 2) {
+                            if(cnt-1 === 0)
+                                inc = 0.5;
+                            else if(cnt-2 === 0)
+                                inc = 1.5;
+                        }
+                        else if(liker_role === 3) {
+                            if(cnt-1 === 0)
+                                inc = 1;
+                            else if(cnt-2 === 0)
+                                inc = 2.5;
+                            else if(cnt-3 === 0)
+                                inc = 4;
+                            else if(cnt-4 === 0)
+                                inc = 6;
+                            else if(cnt-5 === 0)
+                                inc = 7.5;
+                        }
+                        var user = await User.findOneAndUpdate({_id: profile._id}, { $inc: { points: inc }}, {
+                            returnOriginal: false
+                        });
+                        res.json(post)
+                    });
                 })
-                .catch(err => res.status(404).json({ success: false, msg: 'No post found' }));
+                .catch(err => {
+                    console.log(err);
+                    res.status(404).json({ success: false, msg: 'No post found' })
+                });
         });
     }
 );
@@ -114,7 +161,21 @@ router.post(
 
                     post.likes.splice(removeIndex, 1);
 
-                    post.save().then(post => res.send(200).json(post));
+                    post.save().then(post => {
+                        var likeCount = post.likes.length;
+                        if(likeCount % 3 === 0)
+                        {
+                            User.findOneAndUpdate({ id: req.user.id }, {$dec : { points: 5} },{
+                                returnOriginal: false
+                            }, (err, doc) => {
+                                if(err)
+                                    res.send(400);
+                                else
+                                    res.send(200).json(post);
+                            })
+                        }
+                        res.send(200).json(post)
+                    });
                 })
                 .catch(err => res.status(404).json({success: false, msg:  'No post found' }));
         });

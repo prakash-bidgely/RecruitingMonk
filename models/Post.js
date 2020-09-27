@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var shortid = require("shortid");
 
 const PostSchema = new Schema({
+    uid: {
+        type: String,
+        default: shortid.generate
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
     text: {
-        type: String,
-        required: true
+        type: String
     },
     name: {
         type: String
@@ -24,31 +28,17 @@ const PostSchema = new Schema({
             }
         }
     ],
-    comments: [
-        {
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: 'User'
-            },
-            text: {
-                type: String,
-                required: true
-            },
-            name: {
-                type: String
-            },
-            avatar: {
-                type: String
-            },
-            date: {
-                type: Date,
-                default: Date.now()
-            }
-        }
-    ],
+    comments: [{type: Schema.Types.ObjectId, ref: "Post"} ],
     views: {
        type: Number,
        default: 0
+    },
+    isQuestion: {
+        type: Boolean,
+        default: false
+    },
+    comment_parent: {
+        type: String
     },
     date: {
         type: Date,

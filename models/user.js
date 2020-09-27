@@ -92,6 +92,10 @@ var userSchema = new mongoose.Schema({
     resetPasswordExpires: {
         type: Date,
         default: new Date()
+    },
+    imported: {
+        type: Boolean,
+        default: false
     }
 });
 
