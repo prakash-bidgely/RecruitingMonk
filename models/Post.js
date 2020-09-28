@@ -28,7 +28,12 @@ const PostSchema = new Schema({
             }
         }
     ],
-    comments: [{type: Schema.Types.ObjectId, ref: "Post"} ],
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Post"
+        }
+        ],
     views: {
        type: Number,
        default: 0
@@ -46,4 +51,4 @@ const PostSchema = new Schema({
     }
 });
 
-module.exports = Post = mongoose.model('post', PostSchema);
+module.exports = Post = mongoose.model('Post', PostSchema);
