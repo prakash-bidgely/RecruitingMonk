@@ -1,7 +1,6 @@
 const express = require('express');
 const Post = require('../models/Post');
 const router = express.Router();
-const mongoose = require('mongoose');
 const passport = require('passport');
 var User = require("../models/user");
 
@@ -13,9 +12,11 @@ router.get('/test', (req, res) => res.json({ msg: 'Posts Works' }));
 
 router.get('/', (req, res) => {
     Post.find()
-        .populate('user likes.user comments')
+        .deepPopulate('likes.user user comments.likes.user comments.user comments.comments comments.comments.user comments.comments.likes.user')
         .sort({ date: -1 })
-        .then(posts => res.json(posts))
+        .then(posts => {
+            res.json(posts)
+        })
         .catch(err => {
             console.log(err);
             res.status(404).json({ success: false, msg: 'No posts found' })

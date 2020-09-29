@@ -17,6 +17,7 @@ const multer = require("multer");
 var Content = require('./models/content');
 const jwt = require("jsonwebtoken");
 var cors = require('cors');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var app = express();
 
 app.use(cors());

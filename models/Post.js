@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 const Schema = mongoose.Schema;
 var shortid = require("shortid");
 
@@ -51,4 +52,5 @@ const PostSchema = new Schema({
     }
 });
 
+PostSchema.plugin(deepPopulate);
 module.exports = Post = mongoose.model('Post', PostSchema);
