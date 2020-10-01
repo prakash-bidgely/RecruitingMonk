@@ -213,7 +213,7 @@ router.post("/follow/:source/:dest", passport.authenticate('jwt', { session: fal
     }
 );
 
-router.get(
+router.post(
     '/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
       User.findOne({username: req.body.username}, async (err, doc) =>
       {
