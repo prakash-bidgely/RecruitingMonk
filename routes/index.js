@@ -161,7 +161,7 @@ router.post('/complete',  (req,res) => {
 });
 
 router.get("/members", (req, res) => {
-  User.find({}).select({ "name": 1, "username": 1, "points": 1}).then((doc) => {
+  User.find({}).select({ "name": 1, "username": 1, "points": 1, "avatar": 1}).then((doc) => {
     res.send(doc);
   })
 });
@@ -236,12 +236,6 @@ router.post(
 router.post('/import', (req,res) => {
   const newUser = new User(req.body);
   newUser.save().then(response => res.send(response)).catch(err => res.send("error BE"))
-});
-
-router.get("/all", (req, res) => {
-  User.find({}, (err, doc) => {
-    res.send(doc);
-  })
 });
 
 router.get("/allq", (req, res) => {
