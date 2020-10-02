@@ -13,7 +13,6 @@ var validateLoginInput = require("../validation/login");
 var validateCompleteProfile = require("../validation/profile");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
-const php_password = require('php-passwd');
 var hasher = require('wordpress-hash-node');
 const config = require("../config/auth");
 
@@ -161,10 +160,14 @@ router.post('/complete',  (req,res) => {
   })
 });
 
+router.get("/members", (req, res) => {
+  User.find({}).select({ "name": 1, "username": 1, "points": 1}).then((doc) => {
+    res.send(doc);
+  })
+});
+
 router.post('/login', (req, res) => {
-  console.log(req.body);
   const { errors, isValid } = validateLoginInput(req.body);
-  console.log(errors);
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -179,7 +182,6 @@ router.post('/login', (req, res) => {
       return res.status(404).json(errors);
     }
 
-    var hash = hasher.HashPassword(password);
     var checked = hasher.CheckPassword(password, user.password); //This will return true;
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch || checked) {
