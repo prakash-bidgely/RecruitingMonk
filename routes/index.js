@@ -155,7 +155,11 @@ router.post('/complete',  (req,res) => {
     }
 
     user._doc.employment = employment;
-    user.save().then(user => res.json(user)).catch(err => res.send(500));
+    var userObj = new User(user);
+    userObj.save().then(doc => {
+      console.log(doc);
+      res.json(doc);
+    }).catch(err => res.send(500));
   })
 });
 
@@ -222,7 +226,6 @@ router.post(
           res.send(500);
         var questions = await Post.find({isQuestion: true, user: doc._id });
         var posts = await Post.find({isQuestion: false, user: doc._id });
-        console.log(questions);
         doc._doc.questions = questions;
         doc._doc.posts = posts;
         res.json(doc);
