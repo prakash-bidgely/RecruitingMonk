@@ -140,12 +140,11 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/complete',  (req,res) => {
-  const { errors, isValid } = validateCompleteProfile(req.body);
+  const { errors, isValid } = validateCompleteProfile(req.body.employment);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   const username = req.body.username;
   const employment = req.body.employment;
 
@@ -155,7 +154,7 @@ router.post('/complete',  (req,res) => {
       return res.status(404).json(errors);
     }
 
-    user.employment = employment;
+    user._doc.employment = employment;
     user.save().then(user => res.json(user)).catch(err => res.send(500));
   })
 });
@@ -223,8 +222,9 @@ router.post(
           res.send(500);
         var questions = await Post.find({isQuestion: true, user: doc._id });
         var posts = await Post.find({isQuestion: false, user: doc._id });
-        doc.questions = questions;
-        doc.posts = posts;
+        console.log(questions);
+        doc._doc.questions = questions;
+        doc._doc.posts = posts;
         res.json(doc);
       })
     }

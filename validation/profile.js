@@ -1,3 +1,6 @@
+const isEmpty = require('./is-empty');
+const Validator = require('validator');
+
 module.exports = function validateCompleteProfile(data) {
     let errors = {};
 
@@ -8,7 +11,7 @@ module.exports = function validateCompleteProfile(data) {
     data.industry = !isEmpty(data.industry) ? data.industry : '';
     data.location = !isEmpty(data.location) ? data.location : '';
 
-    if (!Validator.isEmpty(data.bio)) {
+    if (Validator.isEmpty(data.bio)) {
         errors.bio = 'Bio is invalid';
     }
 
@@ -20,7 +23,7 @@ module.exports = function validateCompleteProfile(data) {
         errors.company = 'Company name field is required';
     }
 
-    if (!Validator.isEmpty(data.experience)) {
+    if (Validator.isEmpty(data.experience)) {
         errors.experience = 'Experience is required';
     }
 

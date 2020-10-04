@@ -68,7 +68,8 @@ var userSchema = new mongoose.Schema({
             default: ""
         },
         experience: {
-            type: Number
+            type: String,
+            default: ""
         },
         location: {
             type: String,
