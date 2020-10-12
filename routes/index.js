@@ -14,15 +14,22 @@ var validateCompleteProfile = require("../validation/profile");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
 var hasher = require('wordpress-hash-node');
+var azure = require('azure-storage');
 const config = require("../config/auth");
 
 sgMail.setApiKey(config.sendgrid.apiKey);
-//Download documents previously uploaded
-router.get('/get', function (req, res) {
-  Content.find({}, (err, doc) => {
+
+router.get('/get/:id', function (req, res) {
+  Content.find({uploaded_by: req.params.id}, (err, doc) => {
+    if(err)
+    {
+      console.log(err);
+      res.sendStatus(503);
+    }
     res.send(doc);
   })
 });
+
 
 router.post('/download/:id', function (req, res) {
   var type = req.query.type;
@@ -32,6 +39,71 @@ router.post('/download/:id', function (req, res) {
     res.download(path.join(__dirname, "../uploads/downloads/", doc[type].value));
   })
 });
+
+router.get('/test', (req, res) => {
+var accountName = 'recmonk'; // storage account name at appSettings
+  var accountKey = 'VcRCrnNtuk4FRI/7MCnICXNDNxKFPLD3P1tYvyLwymlpf/f1XbajWFrmu6OqNJEIcKEjrQDi+fQsJDgTyU/rkw=='; //storage account key at appSettings
+  var host = accountName + '.blob.core.windows.net';
+  var container = 'avatar';
+
+  var blobSvc = azure.createBlobService(accountName, accountKey, host);
+
+  blobSvc.createContainerIfNotExists(container, {publicAccessLevel : 'blob'}, function(error, result, response){
+    if(!error){
+      console.log('no error occurred!'); // logs if no error occurred
+      console.log(result); // logs false if container already exists
+      console.log(response); // logs response including the etag
+      //Container exists and allows
+      //anonymous read access to blob
+      //content and metadata within this container
+
+      blobSvc.createBlockBlobFromLocalFile(container, "test.png", "../public/images/test.png", function(error, result, response){
+        if(!error){
+          // file uploaded
+          // console.log(error);
+          console.log(response); // logs response
+          console.log(result); // logs result
+          res.sendStatus(200);
+        }
+      });
+    }
+    else
+      res.sendStatus(503);
+  });
+});
+
+
+// Helper to upload image
+function upload() {
+  // var accountName = 'recmonk'; // storage account name at appSettings
+  // var accountKey = 'VcRCrnNtuk4FRI/7MCnICXNDNxKFPLD3P1tYvyLwymlpf/f1XbajWFrmu6OqNJEIcKEjrQDi+fQsJDgTyU/rkw=='; //storage account key at appSettings
+  // var host = accountName + '.blob.core.windows.net';
+  // var container = 'avatar';
+  //
+  // var blobSvc = azure.createBlobService(accountName, accountKey, host);
+  //
+  // blobSvc.createContainerIfNotExists(container, {publicAccessLevel : 'blob'}, function(error, result, response){
+  //   if(!error){
+  //     console.log('no error occurred!'); // logs if no error occurred
+  //     console.log(result); // logs false if container already exists
+  //     console.log(response); // logs response including the etag
+  //     //Container exists and allows
+  //     //anonymous read access to blob
+  //     //content and metadata within this container
+  //
+  //     blobSvc.createBlockBlobFromLocalFile(container, "TEST", "../images/test.png", function(error, result, response){
+  //       if(!error){
+  //         // file uploaded
+  //         // console.log(error);
+  //         console.log(response); // logs response
+  //         console.log(result); // logs result
+  //       }
+  //     });
+  //   }
+  //   else
+  //     console.log(error);
+  // });
+}
 
 // Forgot Password Mailing System
 router.post('/forgot', function (req, res, next) {
@@ -101,7 +173,15 @@ router.post('/reset', async function (req, res) {
 
 //Signup Option
 router.post('/register', (req, res) => {
+
   const { errors, isValid } = validateRegisterInput(req.body);
+
+  var uploadOptions = {
+    container: 'mycontainer',
+    blob: req.body.name,
+    text: req.body.file
+  };
+
 
   if (!isValid) {
     return res.status(400).json(errors);

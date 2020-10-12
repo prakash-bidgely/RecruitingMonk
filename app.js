@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+var fileUpload = require('express-fileupload');
 var express = require('express');
 var path = require('path');
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
@@ -11,13 +12,13 @@ var User = require("./models/user");
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 var postRouter = require("./routes/post");
+var libraryRouter = require("./routes/library");
 const passport = require("passport");
 var mongoose = require("mongoose");
 const multer = require("multer");
 var Content = require('./models/content');
 const jwt = require("jsonwebtoken");
 var cors = require('cors');
-var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var app = express();
 
 app.use(cors());
@@ -25,10 +26,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/posts', postRouter);
+app.use('/library', libraryRouter);
 
 
 var storage = multer.diskStorage({

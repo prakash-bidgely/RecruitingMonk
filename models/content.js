@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
-var shortid = require("shortid");
-const Schema = require("mongoose");
+var mongoose = require ( "mongoose" );
+var shortid = require ( "shortid" );
+const Schema = require ( "mongoose" );
 
-var contentSchema = new mongoose.Schema({
+var contentSchema = new mongoose.Schema ( {
     uid: {
         type: String,
         required: true,
@@ -13,32 +13,35 @@ var contentSchema = new mongoose.Schema({
         ref: 'User'
     },
     video: {
-        id: {
-            type: String,
-            default: shortid.generate
-        },
-        value: {
-            type: String
-        }
+        type: String,
+        unique: true,
+        sparse: true
     },
-    pdf:
-        {
-            id: {
-                type: String,
-                default: shortid.generate
-            },
-            value: {
-                type: String
-            }
-        },
+    pdf: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
     category: {
         type: String
     },
-    title: {
+    sub_category: {
         type: String
-        },
-    time : { type : Date, default: Date.now() }
+    },
+    title: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    content: {
+        type: String
+    },
+    post: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    },
+    time: {type: Date, default: Date.now ()}
 
-});
+} );
 
-module.exports = mongoose.model("Content", contentSchema);
+module.exports = mongoose.model ( "Content", contentSchema );
