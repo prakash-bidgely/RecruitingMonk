@@ -321,15 +321,35 @@ router.post('/import', (req,res) => {
   newUser.save().then(response => res.send(response)).catch(err => res.send("error BE"))
 });
 
+router.post('/batch', (req, res) => {
+  req.body.map(data => {
+    console.log(data);
+    Post.findOneAndReplace({ _id: data._id }, data, {new: true }, (err, doc) => {
+      if(err)
+        console.log(err);
+      else
+        console.log(doc);
+    });
+  });
+});
+
 router.get("/allq", (req, res) => {
-  Post.find({isQuestion: true}, (err, doc) => {
-    res.send(doc);
+  Post.find({}, (err, doc) => {
+    res.json(doc);
+  })
+});
+
+router.post("/replace", (req, res) => {
+  Post.findOneAndReplace({ uid: req.body.uid },  req.body.doc , (err, doc) => {
+    if(err)
+      console.log(req.body);
+    res.sendStatus(204);
   })
 });
 
 router.get("/alla", (req, res) => {
   Post.find({isQuestion: false}, (err, doc) => {
-    res.send(doc);
+    res.json(doc);
   })
 });
 
