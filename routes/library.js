@@ -8,19 +8,20 @@ router.post('/', (req, res) => {
     var c = req.body.content;
     var content = new Content(JSON.parse(c));
 
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.file;
-    // Use the mv() method to place the file somewhere on your server
-    console.log(sampleFile);
-    if(sampleFile.size  > 0) {
-        const path = __dirname + '/images/' + sampleFile.name;
-        sampleFile.mv ( path, function ( err ) {
-            if (err) {
-                console.log ( err );
-                res.send ( 500 );
-            }
-            content.pdf = path;
-        } );
+    if(req.files) {
+        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+        let sampleFile = req.files.file;
+        console.log ( sampleFile );
+        if (sampleFile.size > 0) {
+            const path = __dirname + '/images/' + sampleFile.name;
+            sampleFile.mv ( path, function ( err ) {
+                if (err) {
+                    console.log ( err );
+                    res.send ( 500 );
+                }
+                content.pdf = path;
+            } );
+        }
     }
     content.save().then(doc => res.send(doc)).catch(err => {
         console.log(err);
