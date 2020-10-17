@@ -19,7 +19,6 @@ var contentSchema = new mongoose.Schema ( {
     },
     pdf: {
         type: String,
-        unique: true,
         sparse: true
     },
     category: {
