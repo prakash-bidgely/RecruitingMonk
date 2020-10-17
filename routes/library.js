@@ -5,18 +5,30 @@ var Content = require("../models/content");
 router.get('/test', (req, res) => res.json({ msg: 'Library Works' }));
 
 router.post('/', (req, res) => {
-    var content = new Content(JSON.parse(req.body.content));
-
+    var c = req.body.content;
+    console.log(c);
+    var content = new Content(JSON.parse(c));
+    //content.uploaded_by = ObjectId.fromString(c.uploaded_by);
+    console.log(content.video);
 
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let sampleFile = req.files.file;
     const path = __dirname + '/images/' + sampleFile.name;
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(path, function(err) {
-        if (err)
-            res.send(500);
+    console.log(sampleFile);
+    if(sampleFile.size  > 0) {
+        sampleFile.mv ( path, function ( err ) {
+            if (err) {
+                console.log ( err );
+                res.send ( 500 );
+            }
+        } );
+    }
+    content.pdf = path;
+    content.save().then(doc => res.send(doc)).catch(err => {
+        console.log(err);
+        res.json(err)
     });
-    content.save().then(doc => res.send(doc)).catch(err => res.send(500));
 });
 
 //Download documents previously uploaded
@@ -27,14 +39,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/:id', function (req, res) {
-    Content.find({ uploaded_by: ObjectId.fromString(req.params.id)}, (err, doc) => {
-        if(err)
-        {
-            console.log(err);
-            res.sendStatus(503);
-        }
-        res.send(doc);
-    })
+    Content.find({ uploaded_by: ObjectId.fromString(req.params.id)}).deepPopulate('user').then((doc) => res.send(doc))
+        .catch(err => res.send(err))
 });
 
 module.exports = router;

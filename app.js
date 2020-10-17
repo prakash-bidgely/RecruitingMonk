@@ -19,14 +19,17 @@ const multer = require("multer");
 var Content = require('./models/content');
 const jwt = require("jsonwebtoken");
 var cors = require('cors');
+const bodyParser = require('body-parser');
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload());
+
 
 app.use('/', indexRouter);
 app.use('/posts', postRouter);
