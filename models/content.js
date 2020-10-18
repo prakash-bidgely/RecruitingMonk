@@ -12,6 +12,10 @@ var contentSchema = new mongoose.Schema ( {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     video: {
         type: String,
         unique: true,

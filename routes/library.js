@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/:id', function (req, res) {
-    Content.find({ uploaded_by: ObjectId.fromString(req.params.id)}).deepPopulate('user').then((doc) => res.send(doc))
+    Content.find({ uploaded_by: ObjectId.fromString(req.params.id)}).deepPopulate('uploaded_by author').then((doc) => res.send(doc))
         .catch(err => res.send(err))
 });
 
