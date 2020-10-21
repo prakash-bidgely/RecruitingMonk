@@ -35,17 +35,30 @@ router.get('/:id', (req, res) => {
 router.post(
     '/', passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        const { errors, isValid } = validatePostInput(req.body);
+
+        var c = JSON.parse(req.body.content);
+        var newPost = new Post(c);
+        newPost.user = req.user.id;
+        console.log(newPost);
+
+        const { errors, isValid } = validatePostInput(newPost);
         if (!isValid) {
             return res.status(400).json(errors);
         }
-
-        const newPost = new Post({
-            text: req.body.text,
-            name: req.body.name,
-            avatar: req.body.avatar,
-            user: req.user.id
-        });
+        if(req.files) {
+            // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+            let sampleFile = req.files.file;
+            if (sampleFile.size > 0) {
+                const path = __dirname + '/images/' + sampleFile.name;
+                sampleFile.mv ( path, function ( err ) {
+                    if (err) {
+                        console.log ( err );
+                        res.send ( 500 );
+                    }
+                    newPost.file = path;
+                } );
+            }
+        }
 
         newPost.save().then(async post => {
 
