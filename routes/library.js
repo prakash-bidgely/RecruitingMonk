@@ -4,7 +4,7 @@ const { BlobServiceClient } = require('@azure/storage-blob');
 var router = express.Router();
 var Content = require("../models/content");
 
-const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
+const AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=recmonk;AccountKey=VcRCrnNtuk4FRI/7MCnICXNDNxKFPLD3P1tYvyLwymlpf/f1XbajWFrmu6OqNJEIcKEjrQDi+fQsJDgTyU/rkw==;EndpointSuffix=core.windows.net";
 
 router.get('/test', (req, res) => res.json({ msg: 'Library Works' }));
 
