@@ -244,7 +244,7 @@ router.post('/complete',  (req,res) => {
 });
 
 router.get("/members", (req, res) => {
-  User.find({}).select({ "name": 1, "username": 1, "points": 1, "avatar": 1}).then((doc) => {
+  User.find({}).select({}).then((doc) => {
     res.send(doc);
   })
 });
@@ -374,5 +374,15 @@ router.post('/import3/:parent', (req,res) => {
         .catch(error => res.send(500))
 });
 
+router.post('/import4', (req,res) => {
+  const user = new Post(req.body);
+  Post.findOneAndUpdate( { _id: req.params.parent },
+      { $push: { comments: posts  } },{ new: true, useFindAndModify: false })
+      .then(post => {
+        console.log(post);
+        res.json({ post })
+      })
+      .catch(error => res.send(500))
+});
 
 module.exports = router;
