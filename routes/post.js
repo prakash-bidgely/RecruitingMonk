@@ -34,12 +34,11 @@ router.get('/:id', (req, res) => {
 
 router.post(
     '/', passport.authenticate('jwt', { session: false }),
-    (req, res) => {
+    async (req, res) => {
 
         var c = JSON.parse(req.body.content);
         var newPost = new Post(c);
         newPost.user = req.user.id;
-        console.log(newPost);
 
         const { errors, isValid } = validatePostInput(newPost);
         if (!isValid) {
@@ -49,14 +48,22 @@ router.post(
             // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
             let sampleFile = req.files.file;
             if (sampleFile.size > 0) {
-                const path = __dirname + '/images/' + sampleFile.name;
-                sampleFile.mv ( path, function ( err ) {
-                    if (err) {
-                        console.log ( err );
-                        res.send ( 500 );
-                    }
-                    newPost.file = path;
-                } );
+                const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+                const containerName = "post";
+                const containerClient = blobServiceClient.getContainerClient(containerName);
+
+                // Get a block blob client
+                const blockBlobClient = containerClient.getBlockBlobClient(sampleFile.name);
+
+                console.log('\nUploading to Azure storage as blob:\n\t', sampleFile.name);
+
+                console.log(blockBlobClient.url);
+
+                // Upload data to the blob
+                const uploadBlobResponse = await blockBlobClient.upload(sampleFile.data, sampleFile.size);
+                console.log("Blob was uploaded successfully. requestId: ", uploadBlobResponse.requestId);
+                newPost.file = sampleFile.name;
+                newPost.file_link = blockBlobClient.url;
             }
         }
 

@@ -25,6 +25,10 @@ var contentSchema = new mongoose.Schema ( {
         type: String,
         sparse: true
     },
+    pdf_link: {
+        type: String,
+        sparse: true
+    },
     category: {
         type: String
     },

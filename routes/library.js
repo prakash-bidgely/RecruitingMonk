@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
             console.log("Blob was uploaded successfully. requestId: ", uploadBlobResponse.requestId);
             console.log(uploadBlobResponse);
             content.pdf = sampleFile.name;
+            content.pdf_link = blockBlobClient.url;
         }
     }
     content.save().then(doc => res.send(doc)).catch(err => {
