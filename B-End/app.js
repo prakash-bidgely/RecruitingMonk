@@ -51,7 +51,9 @@ require('./config/passport')(passport);
 
 var upload = multer({ storage: storage });
 
-mongoose.connect("mongodb://pdcoder:pdcoder1!@ds031972.mlab.com:31972/naac", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://pdcoder:pdcoder@cluster0.4yipv.mongodb.net/plugin?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("DB Connected!"))
+  .catch((err) => console.log(err));
 
 passport.use(new LocalStrategy((username, password,done)=>{
   User.findOne({
