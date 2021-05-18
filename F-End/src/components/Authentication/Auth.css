@@ -1,0 +1,191 @@
+ .signin{
+    padding-right: 15px;
+    color: #B0343C;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    font-size: 17px;
+}
+
+.signBtn {
+    color: #B32800;
+    font-weight: bold;
+}
+
+.signBtn .signin {
+    color: #fff;
+}
+
+.signup-popup .signBtn .signin {
+    color: #b32800;
+    font-size: 20px;
+}
+
+.login-popup .MuiDialogContent-root:first-child, .signup-popup .MuiDialogContent-root:first-child {
+    padding-top: 0px;
+}
+
+.login-popup .apiBtn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.signup-popup .apiBtn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.apiBtn Button{
+    margin: 5px;
+    line-height: 0;
+    color: #fff;
+}
+
+.apiBtn #google {
+    background-color: #db4e40;
+}
+
+.apiBtn #linkedin {
+    background-color: #0174b4;
+}
+
+.addtnlLogTool{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 4px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(109, 109, 109);
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgb(180, 176, 176);
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
+}
+
+.conseq{
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.conseq p{
+    color: red;
+}
+
+.logBtn Button{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    width: 98%;
+    margin-right: auto;
+}
+
+.login-popup img, .signup-popup img{
+    height: fit-content;
+    width: fit-content;
+    margin-left: -30px;
+}
+
+.login-popup .tagline, .signup-popup .tagline{
+    height: 100%;
+    width: 90%;
+    margin-left: 2px;
+}
+
+.login-popup .Login-loader-img, .signup-popup .Login-loader-img {
+    padding-top: 3%;
+}
+
+.login-popup {
+    justify-content: space-evenly;
+}
+
+.login-popup .MuiDialog-paperWidthSm {
+    max-width: 800px !important;
+    justify-content: space-evenly;
+}
+
+.login-popup .MuiDialogContent-root:first-child {
+    padding-top: 0px !important;
+}
+
+.signup-popup {
+    justify-content: space-evenly;
+}
+
+.signup-popup .MuiDialog-paperWidthSm {
+    max-width: 800px !important;
+    justify-content: space-evenly;
+}
+
+/* Login-Loader Component CSS */
+
+.Login-Loader-bg, .Login-loader-img {
+    background-color: #ffffff;
+    height: 100%;
+    width: 99%;
+}
+
+.Login-loader-img{
+    padding-top: 10%;
+}
+
+.Login-loader-img img {
+    position: relative;
+    animation-name: Login-loader;
+    animation-duration: 5s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+}
+
+.Login-loader-shadow {
+    border-radius: 50%;
+    width: 180px;
+    height: 30px;
+    margin-left: -25px;
+    margin-top: 50px;
+    background-color: grey;
+    position: relative;
+    animation-name: shadow;
+    animation-duration: 5s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+}
+  
+  @keyframes Login-loader {
+    0%   {top:0px;}
+    50%  {top:50px;}
+    100% {top:0px;}
+  }
+
+  @keyframes shadow {
+    0%   {background-color: lightgray;}
+    50%  {background-color: gray;}
+    100% {background-color: lightgray;}
+  }

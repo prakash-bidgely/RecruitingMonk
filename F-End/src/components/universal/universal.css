@@ -1,0 +1,454 @@
+.MuiButton-text, Button {
+    text-transform: none !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .MuiDialogContent-root {
+        padding: 0px !important;
+    }
+    .MuiDialog-paper {
+        margin: 5px !important;
+        width: 92% !important;
+    }
+    .MuiDialogTitle-root, .MuiDialogContent-root {
+        padding: 10px !important;
+    }
+}
+
+.Load {
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#deskTopHeader .signin:hover, #deskTopHeader .signup:hover {
+    background-color: #f05555;
+}
+
+#deskTopHeader .signup {
+    padding: 7px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-block;
+    line-height: normal;
+    text-align: center;
+    border: none;
+    font-family: Roboto, Arial, sans-serif;
+    width: 60%;
+    letter-spacing: 0.8px;
+    background-color: #7c7f85;
+    border-radius: 2px;
+    margin-right: 20px;
+}
+
+#deskTopHeader .signin {
+    padding: 7px 18px;
+    margin-right: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    display: inline-block;
+    font-family: Roboto, Arial, sans-serif;
+    line-height: normal;
+    border: none;
+    width: 52%;
+    letter-spacing: 0.8px;
+    background-color: #B0343C;
+    border-radius: 2px;
+}
+
+#deskTopHeader .sign .signBtn {
+    color: white;
+}
+
+#mobTopHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    z-index: 99;
+    margin-top: 5px;
+}
+
+#mobTopHeader .signBtn .signin {
+    color: #b32800 !important;
+}
+
+.MainHeader{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+.logo img{
+    width: 100px;
+    height: 40px;
+    color: '#B0343C';
+    cursor: pointer;
+    position: relative;
+}
+
+
+.BottomHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    border-top: 3px solid #f0f0f0;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px silver;
+}
+
+.BottomHeader form input{
+    border: 1px solid #B0343C;
+    height: 36px;
+    width: 70vw;
+    padding: 10px;
+    border-radius: 8px 0px 0px 8px;
+}
+
+.BottomHeader form input{
+    background-color: #F5F5F5;
+}
+
+.BottomHeader form button{
+    height: 36px;
+    background-color: #B0343C;
+    color: #ffffff;
+    font-size: 13px;
+    width: 60px;
+    border: none;
+    border-radius: 0px 8px 8px 0px;
+    cursor: pointer;
+}
+
+.BottomNav{
+    width: 100vw;
+    position: absolute;
+    bottom: 0px;
+}
+
+.Filter{
+    background-color: #f0f0f0;
+}
+
+.Filter .topFilter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.Filter .btmFilter{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 15px;
+    font-size: 15px;
+    color: #353535;
+    cursor: pointer;
+}
+
+.Filter .btmFilter p:nth-child(2){
+    margin-left: 20px;
+}
+
+.LibraryHeader .btmFilter{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 15px;
+    font-size: 15px;
+    color: #353535;
+    cursor: pointer;
+}
+
+.LibraryHeader .btmFilter p:nth-child(2){
+    margin-left: 20px;
+}
+
+
+#deskTopHeader{
+    display: none;
+}
+
+#DeskFooter{
+    display: none;
+}
+
+.Loader-bg{
+    width: 100vw;
+    height: 100vw;
+    overflow: hidden;
+}
+
+#bottomNav{
+    margin-top: 56px;
+}
+
+@media only screen and (min-width: 800px){
+   
+    .Filter{
+        margin: auto 40vw auto 15vw;
+    }
+
+    .LibraryHeader .btmFilter {
+        margin: auto 40vw auto 18vw;
+    }
+
+    .BottomHeader form button{
+        font-size: 16px;
+    }
+
+    .BottomHeader .myForm{
+        width: 61vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #bottomNav{
+        display: none ;
+    }
+
+    .TopHead #deskTopHeader{
+        display: block;
+        height: 100px;
+        width: auto;
+        background-color: #fff;
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .subTopHead2{
+        display: flex;
+        position: absolute;
+        bottom: 1.5rem;
+        left: 16rem;
+    }
+
+    .subTopHead2 Button{
+        font-weight: bold;
+    }
+
+    .subTopHead2 Button:hover{
+        color: #b32800 !important;
+        box-shadow: none;
+        background-color: rgba(0, 0, 0, 0) !important;
+    }
+
+    .logo img{
+        position: relative;
+        top: auto;
+        left: 140px;
+        width: 177px;
+        height: 68px;
+    }
+
+    #mobTopHeader{
+         display: none;
+    }
+    
+    .MainHeader{
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+        width:100%;
+        z-index: 99;
+   }
+
+   .MainCompo{
+    position: relative;
+    /* top: 11rem; */
+   }
+
+   #DeskFooter{
+       display: block;
+   }
+   
+   .DeskFooter{
+       z-index: 99;
+       background-color: #fff;
+       margin-top: 100px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin-right: auto;
+       margin-left: auto;
+   }
+
+   .DeskFooter .footer-top,
+   .DeskFooter .footer-bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    /* padding-top: 50px; */
+   }
+
+   .DeskFooter .footer-top{
+       border-bottom: 1px solid silver;
+    }
+
+    .DeskFooter .footer-bottom{
+        padding: 20px;
+        /* margin:10px; */
+    }
+
+}
+
+/* Footer Component CSS */
+
+.footer-top {
+    border-top: 1px solid darkgray;
+    border-bottom: 1px solid darkgray;
+    background: white;
+    padding-top: 50px;
+    font-family: Montserrat !important;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.footer-bottom {
+    background: white;
+    color: #000;
+    font-weight: 300;
+    padding-top: 10px;
+    font-size: 13px;
+    font-family: Montserrat !important;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.footer-logo {
+    margin-right: 15px;
+    float: left;
+}
+
+.footer-logo-text {
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: -18px !important;
+}
+
+.footer-item {
+    padding: 0px 20px 30px 18px;
+}
+
+.footer-item-other {
+    padding: 0px 20px 30px 18px;
+    margin-top: 0px !important;
+}
+
+.list-item, .footer-links {
+    font-weight: 300;
+    font-size: 16px !important;
+    text-decoration: none !important;
+    color: #000 !important;
+    padding: 0 !important;
+    padding-bottom: 2px !important;
+}
+
+.footer-headings {
+    margin: 0px !important;
+    font-size: 16px !important;
+    margin-bottom: 15px !important;
+}
+
+.footer-social-icon {
+    color: #fff;
+}
+
+.footer-social-icon .fa {
+    padding-top: 4px;
+}
+
+.footer-links:hover {
+    color: #b32800 !important;
+}
+
+.social-list {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.social-list-item {
+    padding: 0px !important;
+    margin-right: 10px;
+}
+
+.footer-social-links {
+    background-color: #b32800;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.footer-social-links:hover {
+    background-color: #f99c38 !important;
+}
+
+/* Loader Component CSS */
+
+.Loader-bg, .loader-img {
+    background-color: #ffffff;
+    height: 100%;
+    width: 99vw;
+}
+
+.loader-img{
+    padding-top: 10%;
+}
+
+.loader-img img {
+    position: relative;
+    animation-name: loader;
+    animation-duration: 5s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+}
+
+.loader-shadow {
+    border-radius: 50%;
+    width: 180px;
+    height: 30px;
+    margin-top: 50px;
+    background-color: grey;
+    position: relative;
+    animation-name: shadow;
+    animation-duration: 5s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+}
+  
+  @keyframes loader {
+    0%   {top:0px;}
+    50%  {top:50px;}
+    100% {top:0px;}
+  }
+
+  @keyframes shadow {
+    0%   {background-color: lightgray;}
+    50%  {background-color: gray;}
+    100% {background-color: lightgray;}
+  }
